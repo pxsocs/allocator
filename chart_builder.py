@@ -30,7 +30,6 @@ CHART_DEFAULTS = {
     },
     "xAxis": {
         "gridLineWidth": 1,
-        "tickInterval": 1,
         "minPadding": 0,
         "maxPadding": 0,
         "startOnTick": True,
@@ -65,7 +64,8 @@ def plot_chart(x,
                label='data',
                title='',
                subtitle='',
-               dt=True):
+               dt=True,
+               dl=True):
     # SAMPLE USAGE BELOW
     # from highcharts import Highchart
     # from chart_builder import CHART_DEFAULTS, plot_chart
@@ -85,4 +85,14 @@ def plot_chart(x,
     chart.set_options('xAxis', {'title': {'text': x_label}})
     chart.set_options('yAxis', {'title': {'text': y_label}})
     chart.add_data_set(data, type, label)
+    if dl is True:
+        chart.add_data_set(data,
+                           type,
+                           label,
+                           dataLabels={
+                               'enabled': True,
+                               'format': '{point.properties.postal-code}'
+                           })
+    else:
+        chart.add_data_set(data, type, label)
     return (chart)
